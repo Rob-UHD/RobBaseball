@@ -1,0 +1,81 @@
+---
+title: "Data Smoothing Function"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+```
+
+
+
+**Beginning of the raw data input**
+```{r}
+
+#CHANGE INPUT FILE NAME EACH TIME!!!
+
+
+
+smooth_data <- read.csv('Max_Scherzer_2008-2023.csv')
+
+smooth_data
+
+```
+
+
+**Smoothing Function Below**
+```{r}
+#want to change this to remove some of the columns we dont want instead of the many many many columns we DO want now
+scrubbed_data <-smooth_data %>% 
+  select(stand, release_speed, release_pos_x, release_pos_y, release_pos_z, pfx_x, pfx_z, zone, pitch_type)
+
+scrubbed_data
+
+#CHANGE OUTPUT FILE NAME EACH TIME!!!
+write.csv(scrubbed_data, 'Max_Scherzer1.csv')
+```
+
+
+**Remove na for now... will change later to keep the rest of the data and ignore the na in the columns**
+
+```{r}
+remove_na <- na.omit(scrubbed_data)
+
+
+write.csv(remove_na, 'Max_Scherzer_7_22_24.csv')
+
+remove_na
+```
+
+
+
+**DO NOT RUN THIS BELOW FOR NOW**
+```{r}
+#DO NOT RUN
+#TEST
+#TEST
+#TEST
+
+#THIS IS FOR TESTING AND CHECKING DO NOT RUN
+#DO NOT RUN THIS
+#this is all for testing
+remove_na %>% group_by(zone) %>% summarize(freq = n())
+
+remove_na %>% group_by(release_speed) %>% summarize(freq = n())
+
+remove_na %>% group_by(release_pos_x) %>% summarize(freq = n())
+
+remove_na %>% group_by(release_pos_y) %>% summarize(freq = n())
+
+remove_na %>% group_by(release_pos_z) %>% summarize(freq = n())
+
+remove_na %>% group_by(stand) %>% summarize(freq = n())
+
+remove_na %>% group_by(pfx_x) %>% summarize(freq = n())
+
+remove_na %>% group_by(pfx_z) %>% summarize(freq = n())
+
+
+```
+
